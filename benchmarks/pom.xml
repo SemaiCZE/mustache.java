@@ -61,7 +61,7 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
+      <!--<plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.6.0</version>
@@ -88,7 +88,7 @@
             <argument>10</argument>
           </arguments>
         </configuration>
-      </plugin>
+      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -123,6 +123,24 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>cz.cuni.mff.d3s.spl</groupId>
+        <artifactId>jmh_spl-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>spl_annotation</goal>
+              <goal>evaluator_fetcher</goal>
+              <goal>data_saver</goal>
+              <goal>formula_extractor</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <additionalOpts>-f 2 -wi 5 -i 10</additionalOpts>
+        </configuration>
       </plugin>
     </plugins>
     <pluginManagement>
