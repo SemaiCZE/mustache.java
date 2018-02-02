@@ -138,9 +138,9 @@
             </goals>
           </execution>
         </executions>
-        <configuration>
+        <!--<configuration>
           <additionalOpts>-f 2 -wi 5 -i 10</additionalOpts>
-        </configuration>
+        </configuration>-->
       </plugin>
     </plugins>
     <pluginManagement>

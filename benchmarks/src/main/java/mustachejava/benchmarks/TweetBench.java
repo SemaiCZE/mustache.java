@@ -55,6 +55,9 @@ import static java.util.Collections.singletonList;
  */
 @SuppressWarnings("unused")
 @State(Scope.Benchmark)
+@Fork(2)
+@Warmup(iterations = 10)
+@Measurement(iterations = 15)
 public class TweetBench {
 
   private Mustache tweetMustache = new DefaultMustacheFactory().compile("tweet.mustache");

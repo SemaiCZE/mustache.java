@@ -66,6 +66,9 @@ Main.benchMustacheSimple                  thrpt   20     588578.957 ±    61712.
 
  */
 @State(Scope.Benchmark)
+@Fork(2)
+@Warmup(iterations = 5)
+@Measurement(iterations = 15)
 public class Main {
 
   private final NullWriter nw = new NullWriter();
