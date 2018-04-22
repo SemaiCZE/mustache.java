@@ -8,6 +8,7 @@ import com.github.mustachejava.MustacheResolver;
 import com.github.mustachejavabenchmarks.NullWriter;
 import com.sun.management.ThreadMXBean;
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.infra.Blackhole;
 
 import java.io.*;
 import java.lang.management.ManagementFactory;
@@ -63,7 +64,7 @@ public class TweetBench {
   private Mustache tweetMustache = new DefaultMustacheFactory().compile("tweet.mustache");
   private Mustache timelineMustache = new DefaultMustacheFactory().compile("timeline.mustache");
   private Tweet tweet = new Tweet();
-  private NullWriter nullWriter = new NullWriter();
+  private Writer nullWriter = null;
   private List<Object> tweetScope = new ArrayList<>(singletonList(tweet));
   private List<Object> timelineScope = new ArrayList<>();
 
@@ -110,6 +111,11 @@ public class TweetBench {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Setup
+  public void setup(Blackhole bh) {
+    nullWriter = new BlackholeWriter(bh);
   }
 
   @Benchmark

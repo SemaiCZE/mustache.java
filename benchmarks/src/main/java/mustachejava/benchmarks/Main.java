@@ -5,9 +5,11 @@ import com.github.mustachejava.Mustache;
 import com.github.mustachejava.util.HtmlEscaper;
 import com.github.mustachejavabenchmarks.NullWriter;
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.infra.Blackhole;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -71,7 +73,7 @@ Main.benchMustacheSimple                  thrpt   20     588578.957 ±    61712.
 @Measurement(iterations = 15)
 public class Main {
 
-  private final NullWriter nw = new NullWriter();
+  private Writer nw = null;
   private final Mustache normal = new DefaultMustacheFactory().compile(new StringReader("({{#loop}}({{value}}){{/loop}})"), "test");
 
   private final List<Object> scope = new ArrayList<>(Collections.singletonList(new Object() {
@@ -86,6 +88,11 @@ public class Main {
       }
     }
   }));
+
+  @Setup
+  public void setup(Blackhole bh) {
+    nw = new BlackholeWriter(bh);
+  }
 
   @Benchmark
   @BenchmarkMode(Mode.Throughput)
